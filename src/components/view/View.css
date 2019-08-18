@@ -1,0 +1,126 @@
+div.view{
+  height: 85%;
+  width: 100%;
+}
+div.cats-list-box{
+  height: 81%;
+}
+ul.cats-list{
+  width: 80%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-left: 0;
+  border-right: 10x solid lightgrey;
+}
+li.cat-item{
+  width:75%;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    text-align: center;
+}
+div.locs-table-box{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 100%;
+}
+thead{
+  position: fixed;
+  top:10%;
+  width: 80%;
+  background-color: white;
+}
+table.locs-table {
+  display: inline;
+  margin-left: 10%;
+  border-collapse: collapse;
+  width: 80%;
+  height: 30em;
+  overflow-y: auto;
+  position: absolute;
+  top:15%;
+  left: 10%;
+  right: 10%;
+}
+th{
+  padding: 15px;
+  text-align: left;
+  width: 10em;
+}
+td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  width: 10em;
+}
+span.switch-label{
+  font-size: 7pt;
+  color: lightgrey;
+  font-weight: lighter;
+}
+label.switch-box{
+  width: 7em;
+  display: inline;
+  position: absolute;
+  top: 11%;
+  left: 1%;
+
+}
+tr:hover {background-color:#f5f5f5;}
+
+div.locs-table-box{
+  height: 40%;
+}
+label{
+  display: block;
+  margin-top: 0.5em;
+  color: lightblue;
+  font-weight: bold;
+  font-size: 14pt;
+}
+input.text,select.select-cat{
+  width: 96%;
+  border-radius: 25px;
+  margin-top: 0.5em;
+}
+
+input.text{
+  border-radius: 15px;
+  border: 1px solid grey;
+  padding-left: 8px;
+}
+
+input.text:focus {
+  outline: none;
+  box-shadow: 0px 0px 2px blue;
+}
+
+button.save{
+  border-radius: 25px;
+  width: 50%;
+  border: 2px solid lightblue;
+  background-image: linear-gradient(lightblue, lightgrey);
+  float: right;
+  margin-top: 1em;
+  color: white;
+  font-weight: bold;
+}
+button.cancel{
+  border-radius: 25px;
+  width: 25%;
+  border: 2px solid lightblue;
+  margin-top: 1em;
+  color: lightblue;
+  font-weight: bold;
+}
+
+div.modal-title{
+  border-radius: 25px;
+  color: whitesmoke;
+  height: 4em;
+  width: 100%;
+  text-align: center;
+  background-color: lightblue;
+  border: 2px solid whitesmoke;
+}

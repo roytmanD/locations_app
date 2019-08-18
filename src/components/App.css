@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  background: white;
+  height: 50em;
+  width: auto;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow:hidden;
+}
