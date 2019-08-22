@@ -60,9 +60,8 @@ checkSelected = (operation, view) =>{
   openLocModal = (operation, e) => {
     e.preventDefault();
     if(this.checkSelected(operation, 'locations')){
-  this.props.data.dispatch(LocModalAct(operation))
+  this.props.data.dispatch(LocModalAct(operation,operation === 'ADD' ? null :this.props.data.locations.checked[0].category))
 }
-
   }
 
   openMapModal = () =>{
@@ -86,9 +85,7 @@ checkSelected = (operation, view) =>{
 
   deleteLoc = () => {
     let toRemove = this.props.data.locations.checked;
-    console.log(toRemove);
     if(this.oneOrMoreSelected(toRemove)){
-      console.log(toRemove);
       const conf = window.confirm(`Are you sure you want to delete [${toRemove.map(l=>l.name)}] from Loc. list?`);
       if(conf){
         this.props.data.dispatch(DeleteLocAct(toRemove));
@@ -97,7 +94,6 @@ checkSelected = (operation, view) =>{
 }
 
 render(){
-  console.log(this.props);
   view = window.location.pathname.slice(1);
   return(
     <div className="toolbar-box bar">

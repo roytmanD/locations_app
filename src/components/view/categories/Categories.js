@@ -74,8 +74,6 @@ saveCat = (e) => {
     return false;
   }
   this.props.data.dispatch(AddCatAct(catNameInput));
-  //categories.push(catNameInput);
-  // localStorage.setItem('cats',JSON.stringify(categories));
   this.closeModal();
 }
 
@@ -86,8 +84,32 @@ editCat = () => {
   this.closeModal();
 }
 
+
+filterLocations = () => {
+  let allLocs = this.props.data.locations.array;
+  let checkedCats = this.props.data.categories.checked;
+  let filtredLocs = new Set();
+  allLocs.forEach(loc =>{
+    if(!Array.isArray(loc.category)){
+      if(checkedCats.includes(loc.category)){
+        filtredLocs.add(loc);
+      }
+    }else{
+      loc.category.forEach(cat=>{
+        if(checkedCats.includes(cat)){
+          filtredLocs.add(loc);
+        }
+      })
+
+    }
+  })
+
+  return Array.from(filtredLocs);
+}
+
   render(){
     const operation = this.props.data.categories.modal.operation;
+
     return(
       <div className="categories-box view">
         <div className='cats-list-box'>
@@ -126,7 +148,8 @@ editCat = () => {
               style={mapModalStyle}>
 
               <MapContainer
-              locations = {this.props.data.locations.array.filter(location=>new Set(this.props.data.categories.checked).has(location.category))}/>
+              locations ={this.filterLocations()}
+              />
          </Modal>
       </div>
     );
@@ -134,3 +157,5 @@ editCat = () => {
 }
 
 export default Categories;
+
+  //{this.props.data.locations.array.filter(location=>this.props.data.categories.checked.includes(location.category))}

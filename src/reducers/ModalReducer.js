@@ -6,10 +6,13 @@ const ModalReducer = (state = initialState, action) => {
       return {...state, catModalIsOpen: !state.catModalIsOpen, operation: action.payload}
 
       case 'LOC MODAL':
-      return {...state, locModalIsOpen: !state.locModalIsOpen, operation: action.payload}
+      return {...state, locModalIsOpen: !state.locModalIsOpen, operation: action.payload.operation,locationCats:action.payload.locationCats }
 
       case 'MAP MODAL':
       return {...state, mapModalIsOpen: !state.mapModalIsOpen}
+
+      case 'OPTION CHANGE':
+      return {...state, locationCats: action.payload}
       default:
        return state;
   }

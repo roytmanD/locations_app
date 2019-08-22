@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import Geocode from "react-geocode";
 import Switch from "react-switch";
+import Select from 'react-select';
 
 //style
 import '../View.css';
@@ -13,6 +14,7 @@ import CatModalAct from '../../../actions/LocModalAct';
 import MapModalAct from '../../../actions/MapModalAct';
 import AddLocAct from '../../../actions/AddLocAct';
 import EditLocAct from '../../../actions/EditLocAct';
+import OnOptionChangeAct from '../../../actions/OnOptionChangeAct';
 
 //components
 import MapContainer from '../map/MapContainer';
@@ -40,7 +42,7 @@ const TABLE_COLUMNS = [
 const customStyles = {
   content : {
     width: '25em',
-    height: '20em',
+    height: '22em',
     left: '30%',
     top: '30%',
     border: '2px solid lightblue',
@@ -59,13 +61,14 @@ const mapModalStyle = {
     padding: '1em'
   }
 }
+
+
 Modal.setAppElement('#root');
 
 class Locations extends React.Component{
   constructor(props) {
       super(props);
       this.state = {
-        selectValue: 'Choose locations category',
         ltLgVal:'',
         switch:false};
     }
@@ -77,13 +80,20 @@ class Locations extends React.Component{
         component.focus();
       }
     };
-
-      onSelectChange = (event) => {
-    this.setState({selectValue: event.target.value});
-  }
+  handleChange = selectedOption => {
+   let option;
+   if(Array.isArray(selectedOption)){
+  option =   selectedOption.map(opt=>opt.value);
+}else if(!selectedOption){
+  option=null;
+}else{
+  option = selectedOption.value;
+}
+   this.props.data.dispatch(OnOptionChangeAct(option));
+    };
 
   closeModal = () => {
-    this.props.data.dispatch(CatModalAct(false));
+    this.props.data.dispatch(CatModalAct(false,null));
     this.setState({ltLgVal: ''});
   }
   closeMapModal = () => {
@@ -110,14 +120,13 @@ class Locations extends React.Component{
     e.preventDefault();
     const newLocation = {
       name: document.querySelector('#loc_name').value,
-      category: document.querySelector('#loc_category').value,
+      category: this.props.data.locations.modal.locationCats,
       address: document.querySelector('#loc_address').value,
       coordinates: document.querySelector('#loc_coordinates').value
     }
+    console.log(newLocation);
     const locs = this.props.data.locations.array;
-    const locNames = new Set(locs.map((loc)=> {
-  return loc['name'];
-}));
+    const locNames = new Set(locs.map((loc)=> {return loc['name']}));
 
 if(locNames.has(newLocation.name)){
   alert(`The location ${newLocation.name} already exists!`);
@@ -136,7 +145,7 @@ if(locNames.has(newLocation.name)){
     const toEdit = this.props.data.locations.checked[0];
     const changeToInput = {
       name:document.querySelector('#loc_name').value,
-      category: document.querySelector('#loc_category').value,
+      category: this.props.data.locations.modal.locationCats,
       address: document.querySelector('#loc_address').value,
       coordinates: document.querySelector('#loc_coordinates').value
     }
@@ -152,8 +161,11 @@ if(locNames.has(newLocation.name)){
   }
 
   render(){
+    const selectedCats = this.props.data.locations.modal.locationCats;
     const operation = this.props.data.locations.modal.operation;
-
+    const options = this.props.data.categories.array.map(cat=> {
+      return {value:cat,label:cat}
+    });
     return(
       <div className="locations-box view">
         <div className="locs-table-box">
@@ -215,12 +227,14 @@ if(locNames.has(newLocation.name)){
                defaultValue={operation==='EDIT' ? this.props.data.locations.checked[0].coordinates : this.state.ltLgVal}/>
 
                <label htmlFor="loc_category" >Loc. category:</label>
-               <select onChange= {e=>this.onSelectChange(e)} value={ operation==='EDIT' ? this.props.data.locations.checked[0].category : this.state.selectValue}
-              className="select-cat" id="loc_category">
-                 {['Choose location category'].concat(this.props.data.categories.array).map(cat=>{
-                 return  <option  key={`select-cat-item:${cat}`} value={cat}>{cat}</option>
-                 })}
-                </select>
+
+            <Select
+       value={selectedCats===null ? null : !Array.isArray(selectedCats) ? {label:selectedCats,value:selectedCats} : selectedCats.map(c=>{return{label:c,value:c}})}
+       onChange={this.handleChange}
+       options={options}
+       isMulti
+       placeholder="Select categories"
+     />
 
                 <button type="button" className="cancel" onClick={this.closeModal}>cancel</button>
                 <button className="save" type="submit">save</button>
@@ -231,7 +245,6 @@ if(locNames.has(newLocation.name)){
                  isOpen={this.props.data.map}
                  onRequestClose={this.closeMapModal}
                  style={mapModalStyle}>
-
                  <MapContainer locations ={this.props.data.locations.checked}/>
             </Modal>
 
@@ -253,10 +266,9 @@ render(){
   return(
     <tr onClick={this.handleClick} className='l-tr' key={`tr${this.props.indx}`} style={{backgroundColor: this.props.checked ? "lightblue" : null}}>
       {Object.values(this.props.location).map((field, indx)=> {
-        return <td key={`td${this.props.indx}${indx}`}>{field}</td>
+        return <td key={`td${this.props.indx}${indx}`}>{Array.isArray(field)? field.join(", ") : field}</td>
       })}
     </tr>
   );
 }
-
 }

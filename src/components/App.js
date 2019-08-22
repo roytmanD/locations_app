@@ -26,14 +26,17 @@ class App extends React.Component {
 
   componentDidMount(){
     //fetching cats. from localStorage when component first mounts
-    const cats = JSON.parse(localStorage.getItem('cats'));
-    const locs = JSON.parse(localStorage.getItem('locs'));
+    let cats = JSON.parse(localStorage.getItem('cats'));
+    let locs = JSON.parse(localStorage.getItem('locs'));
+
+
     if(cats.length===0){ //TODO this some backup data. For development/testing only.
       cats = CATS;
       }
     if(locs.length===0){
       locs = LOCS
      }
+
     if(cats){
       this.props.dispatch(AddCatAct(cats));
     }
@@ -44,7 +47,6 @@ class App extends React.Component {
 
 
   render(){
-
     return (
       <div className="App">
         <Toolbar

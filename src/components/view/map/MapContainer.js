@@ -48,7 +48,7 @@ export class MapContainer extends React.Component {
                     onClick={this.onMarkerClick}
                     key={`${location.name}.mrk`}
                     name={location.name}
-                    category={location.category}
+                    category={location.category.join(', ')}
                     address={location.address}
                     position={{lat:coordinates[0] ,lng:coordinates[1]}}
                     />

@@ -3,6 +3,8 @@ const LocReducer = (state = initialState, action) =>{
   switch(action.type){
     case 'ADD LOC':
     const locations = state.array.concat(action.payload);
+    console.log(locations);
+    console.log('pizda');
     localStorage.setItem('locs',JSON.stringify(locations));
     return {
       ...state,

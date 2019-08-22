@@ -1,6 +1,6 @@
-const LocModalAct = (operation) => ({
+const LocModalAct = (operation, cats) => ({
   type: 'LOC MODAL',
-  payload: operation
+  payload: {operation : operation, locationCats: cats}
 });
 
 
