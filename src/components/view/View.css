@@ -44,12 +44,12 @@ table.locs-table {
   right: 10%;
 }
 th{
-  padding: 15px;
+  padding: 1em;
   text-align: left;
   width: 10em;
 }
 td {
-  padding: 15px;
+  padding: 1em;
   text-align: left;
   border-bottom: 1px solid #ddd;
   width: 10em;
