@@ -30,10 +30,10 @@ class App extends React.Component {
     let locs = JSON.parse(localStorage.getItem('locs'));
 
 
-    if(cats.length===0){ //TODO this some backup data. For development/testing only.
+    if(!cats){ //TODO this some backup data. For development/testing only.
       cats = CATS;
       }
-    if(locs.length===0){
+    if(!locs){
       locs = LOCS
      }
 

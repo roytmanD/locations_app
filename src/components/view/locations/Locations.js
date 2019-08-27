@@ -266,7 +266,7 @@ render(){
   return(
     <tr onClick={this.handleClick} className='l-tr' key={`tr${this.props.indx}`} style={{backgroundColor: this.props.checked ? "lightblue" : null}}>
       {Object.values(this.props.location).map((field, indx)=> {
-        return <td key={`td${this.props.indx}${indx}`}>{Array.isArray(field)? field.join(", ") : field}</td>
+        return <td key={`td${this.props.indx}${indx}`}>{Array.isArray(field)? field.sort().join(", ") : field}</td>
       })}
     </tr>
   );

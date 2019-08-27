@@ -124,3 +124,18 @@ div.modal-title{
   background-color: lightblue;
   border: 2px solid whitesmoke;
 }
+
+div.index-box{
+  height: 70%;
+  overflow-y: auto;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  margin-top: 5%;
+}
+
+button.switch-index{
+  border: 1px solid lightblue;
+  border-radius: 25px;
+  background-color: whitesmoke;
+}
